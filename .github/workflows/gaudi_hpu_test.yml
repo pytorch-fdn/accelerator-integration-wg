@@ -49,9 +49,10 @@ on:
         required: true
         type: choice
         options:
+          - vault.habana.ai/gaudi-docker/1.21.0/ubuntu24.04/habanalabs/pytorch-installer-2.6.0:latest
           - vault.habana.ai/gaudi-docker/1.20.0/ubuntu24.04/habanalabs/pytorch-installer-2.6.0:latest
           - vault.habana.ai/gaudi-docker/1.19.2/ubuntu22.04/habanalabs/pytorch-installer-2.5.1:latest
-        default: 'vault.habana.ai/gaudi-docker/1.20.0/ubuntu24.04/habanalabs/pytorch-installer-2.6.0:latest'
+        default: 'vault.habana.ai/gaudi-docker/1.21.0/ubuntu24.04/habanalabs/pytorch-installer-2.6.0:latest'
         description: 'The docker image which will be loaded'
       device:
         required: true
@@ -89,7 +90,7 @@ jobs:
         run: |
           echo "runner=${{ github.event.inputs.runner || 'linux-gaudi3' }}" >> $GITHUB_OUTPUT
           echo "device=${{ github.event.inputs.device || '0' }}" >> $GITHUB_OUTPUT
-          echo "image=${{ github.event.inputs.image || 'vault.habana.ai/gaudi-docker/1.20.0/ubuntu24.04/habanalabs/pytorch-installer-2.6.0:latest' }}" >> $GITHUB_OUTPUT
+          echo "image=${{ github.event.inputs.image || 'vault.habana.ai/gaudi-docker/1.21.0/ubuntu24.04/habanalabs/pytorch-installer-2.6.0:latest' }}" >> $GITHUB_OUTPUT
 
       - name: List ref to the PyTorch branch
         id: list-ref
