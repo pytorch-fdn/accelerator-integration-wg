@@ -78,10 +78,13 @@ jobs:
   prepare:
     name: Prepare
     runs-on: ubuntu-latest
+    env:
+      REL_VERSION: "1.21.0"
     outputs:
       runner: ${{ steps.set-env.outputs.runner }}
       image: ${{ steps.set-env.outputs.image }}
       device: ${{ steps.set-env.outputs.device }}
+      rel_ver: ${{ steps.set-env.outputs.rel_ver }}
       ref: ${{ steps.list-ref.outputs.ref }}
       pr-number: ${{ steps.list-ref.outputs.pr_number }}
     steps:
@@ -91,6 +94,7 @@ jobs:
           echo "runner=${{ github.event.inputs.runner || 'linux-gaudi3' }}" >> $GITHUB_OUTPUT
           echo "device=${{ github.event.inputs.device || '0' }}" >> $GITHUB_OUTPUT
           echo "image=${{ github.event.inputs.image || 'vault.habana.ai/gaudi-docker/1.21.0/ubuntu24.04/habanalabs/pytorch-installer-2.6.0:latest' }}" >> $GITHUB_OUTPUT
+          echo "rel_ver=$REL_VERSION" >> $GITHUB_OUTPUT
 
       - name: List ref to the PyTorch branch
         id: list-ref
@@ -129,6 +133,7 @@ jobs:
       image: ${{ needs.prepare.outputs.image }}
       device: ${{ needs.prepare.outputs.device }}
       torch-artifact: ${{ needs.build-torch.outputs.torch-artifact }}
+      rel_ver: ${{ needs.prepare.outputs.rel_ver }}
 
   test:
     name: Test torch_hpu
@@ -148,6 +153,7 @@ jobs:
       torch-artifact: ${{ needs.build-torch.outputs.torch-artifact }}
       torch-hpu-artifact: ${{ needs.build.outputs.torch-hpu-artifact }}
       torch-hpu-dl-artifact: ${{ needs.build.outputs.torch-hpu-dl-artifact }}
+      rel_ver: ${{ needs.prepare.outputs.rel_ver }}
 
   benchmark:
     name: Run benchmarks
@@ -168,3 +174,4 @@ jobs:
       torch-artifact: ${{ needs.build-torch.outputs.torch-artifact }}
       torch-hpu-artifact: ${{ needs.build.outputs.torch-hpu-artifact }}
       torch-hpu-dl-artifact: ${{ needs.build.outputs.torch-hpu-dl-artifact }}
+      rel_ver: ${{ needs.prepare.outputs.rel_ver }}

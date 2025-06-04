@@ -24,6 +24,10 @@ on:
         type: string
         default: '3.10'
         description: 'The python version to use'
+      rel_ver:
+        required: true
+        type: string
+        description: 'The release version of torch_hpu to use'
     outputs:
       torch-hpu-artifact:
         description: 'The distribution artifact name of torch_hpu'
@@ -48,6 +52,8 @@ jobs:
       env:
         HABANA_VISIBLE_DEVICES: all
         OMPI_MCA_btl_vader_single_copy_mechanism: none
+        REL_VERSION: ${{inputs.rel_ver}}
+        BASE_INC: "/usr/include/habanalabs"
       options: >-
         --ipc host
         --cap-add sys_nice
@@ -92,7 +98,7 @@ jobs:
         run: |
           mkdir torch_hpu && cd torch_hpu
           # apt update -y && apt install -y curl gnupg pciutils wget
-          wget 'https://vault.habana.ai/artifactory/gaudi-installer/1.21.0//habanalabs-installer.sh'
+          wget "https://vault.habana.ai/artifactory/gaudi-installer/$REL_VERSION/habanalabs-installer.sh"
           export HABANA_SOFTWARE_STACK="$(pwd)"
           export PYTORCH_MODULES_ROOT_PATH="$HABANA_SOFTWARE_STACK/gaudi-pytorch-bridge"
           git clone https://github.com/HabanaAI/gaudi-pytorch-bridge $PYTORCH_MODULES_ROOT_PATH
@@ -127,14 +133,14 @@ jobs:
           export THIRD_PARTIES_ROOT="$HABANA_SOFTWARE_STACK/3rd-parties"
 
           export HCL_ROOT="$HABANA_SOFTWARE_STACK/HCL/hcl/"
-          export HCL_INCLUDE_DIR=/usr/include/habanalabs/
-          export HL_LOGGER_INCLUDE_DIRS=/usr/include/habanalabs/hl_logger
+          export HCL_INCLUDE_DIR=$BASE_INC/
+          export HL_LOGGER_INCLUDE_DIRS=$BASE_INC/hl_logger
           export MEDIA_ROOT=$(python -c "import habana_frameworks.mediapipe, os;print(os.path.dirname(habana_frameworks.mediapipe.__file__))")
-          export SPECS_EXT_ROOT=/usr/include/habanalabs/
-          export SYNAPSE_ROOT=/usr/include/habanalabs/
-          export SYNAPSE_INCLUDE_DIR=/usr/include/habanalabs/
-          export SYNAPSE_UTILS_ROOT=/usr/include/habanalabs/
-          export SYNAPSE_UTILS_INCLUDE_DIR=/usr/include/habanalabs/
+          export SPECS_EXT_ROOT=$BASE_INC
+          export SYNAPSE_ROOT=$BASE_INC
+          export SYNAPSE_INCLUDE_DIR=$BASE_INC
+          export SYNAPSE_UTILS_ROOT=$BASE_INC
+          export SYNAPSE_UTILS_INCLUDE_DIR=$BASE_INC
 
           export BUILD_ROOT="$HABANA_SOFTWARE_STACK/builds"
           export BUILD_ROOT_LATEST=/usr/lib/habanalabs/
