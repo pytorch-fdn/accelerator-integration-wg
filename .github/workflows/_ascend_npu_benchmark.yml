@@ -127,7 +127,7 @@ jobs:
 
       - name: Install dependencies for all the models
         run: |
-          python benchmark/install.py --userbenchmark test_bench --continue_on_fail
+          python benchmark/install.py --continue_on_fail
 
       - name: Install nightly torchvision and torchaudio
         run: |
@@ -148,7 +148,7 @@ jobs:
       - name: Run benchmarks
         working-directory: benchmark
         run: |
-          python run_benchmark.py test_bench --accuracy --device npu --test eval \
+          python benchmark/test.py -v -k eval_hpu \
               --output ascend_npu_benchmark.json
 
       - name: Upload the benchmark report file
