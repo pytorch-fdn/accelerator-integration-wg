@@ -11,10 +11,6 @@ on:
         required: true
         type: string
         description: "The docker image which will be loaded"
-      device:
-        required: true
-        type: string
-        description: "The device selected to run on"
       torch-artifact:
         required: false
         type: string
@@ -23,13 +19,6 @@ on:
         required: true
         type: string
         description: "The distribution artifact name of torch_npu"
-
-# Bash shells do not use ~/.profile or ~/.bashrc so these shells need to be explicitly
-# declared as "shell: bash -el {0}" on steps that need to be properly activated.
-# It's used to activate ascend-toolkit environment variables.
-defaults:
-  run:
-    shell: bash -el {0}
 
 jobs:
   test:
