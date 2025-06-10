@@ -141,7 +141,6 @@ jobs:
       - prepare
       - build-torch
       - build
-      - test
     if: |
       !cancelled() && github.event_name != 'repository_dispatch' &&
       (success() || (needs.build-torch.result == 'skipped' && needs.build.result == 'success'))
