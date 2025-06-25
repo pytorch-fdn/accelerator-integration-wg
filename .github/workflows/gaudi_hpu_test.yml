@@ -1,39 +1,39 @@
 name: 'Gaudi HPU Test Suite'
 
 on:
-  push:
-    branches:
-      - 'main'
-    paths:
-      - '.github/workflows/gaudi_hpu_test.yml'
-      - '.github/workflows/_gaudi_hpu_build_torch.yml'
-      - '.github/workflows/_gaudi_hpu_build_torch_hpu.yml'
-      - '.github/workflows/_gaudi_hpu_ut.yml'
-      - '.github/workflows/_gaudi_hpu_benchmark.yml'
-      - '.ci/**'
-      - 'gaudi_hpu/**'
-      - 'src/**'
-      - '!**/*.md'
-  pull_request:
-    branches:
-      - 'main'
-    paths:
-      - '.github/workflows/gaudi_hpu_test.yml'
-      - '.github/workflows/_gaudi_hpu_build_torch.yml'
-      - '.github/workflows/_gaudi_hpu_build_torch_hpu.yml'
-      - '.github/workflows/_gaudi_hpu_ut.yml'
-      - '.github/workflows/_gaudi_hpu_benchmark.yml'
-      - '.ci/**'
-      - 'gaudi_hpu/**'
-      - 'src/**'
-      - '!**/*.md'
-  release:
-    types:
-      - 'published'
-  schedule:
-    - cron: '0 12 * * *'
-  repository_dispatch:
-    types: [pytorch-nightly-event-dispatch]
+  # push:
+  #   branches:
+  #     - 'main'
+  #   paths:
+  #     - '.github/workflows/gaudi_hpu_test.yml'
+  #     - '.github/workflows/_gaudi_hpu_build_torch.yml'
+  #     - '.github/workflows/_gaudi_hpu_build_torch_hpu.yml'
+  #     - '.github/workflows/_gaudi_hpu_ut.yml'
+  #     - '.github/workflows/_gaudi_hpu_benchmark.yml'
+  #     - '.ci/**'
+  #     - 'gaudi_hpu/**'
+  #     - 'src/**'
+  #     - '!**/*.md'
+  # pull_request:
+  #   branches:
+  #     - 'main'
+  #   paths:
+  #     - '.github/workflows/gaudi_hpu_test.yml'
+  #     - '.github/workflows/_gaudi_hpu_build_torch.yml'
+  #     - '.github/workflows/_gaudi_hpu_build_torch_hpu.yml'
+  #     - '.github/workflows/_gaudi_hpu_ut.yml'
+  #     - '.github/workflows/_gaudi_hpu_benchmark.yml'
+  #     - '.ci/**'
+  #     - 'gaudi_hpu/**'
+  #     - 'src/**'
+  #     - '!**/*.md'
+  # release:
+  #   types:
+  #     - 'published'
+  # schedule:
+  #   - cron: '0 12 * * *'
+  # repository_dispatch:
+  #   types: [pytorch-nightly-event-dispatch]
   workflow_dispatch:
     inputs:
       runner:
