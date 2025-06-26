@@ -1,39 +1,39 @@
 name: 'Gaudi HPU Test Suite'
 
 on:
-  # push:
-  #   branches:
-  #     - 'main'
-  #   paths:
-  #     - '.github/workflows/gaudi_hpu_test.yml'
-  #     - '.github/workflows/_gaudi_hpu_build_torch.yml'
-  #     - '.github/workflows/_gaudi_hpu_build_torch_hpu.yml'
-  #     - '.github/workflows/_gaudi_hpu_ut.yml'
-  #     - '.github/workflows/_gaudi_hpu_benchmark.yml'
-  #     - '.ci/**'
-  #     - 'gaudi_hpu/**'
-  #     - 'src/**'
-  #     - '!**/*.md'
-  # pull_request:
-  #   branches:
-  #     - 'main'
-  #   paths:
-  #     - '.github/workflows/gaudi_hpu_test.yml'
-  #     - '.github/workflows/_gaudi_hpu_build_torch.yml'
-  #     - '.github/workflows/_gaudi_hpu_build_torch_hpu.yml'
-  #     - '.github/workflows/_gaudi_hpu_ut.yml'
-  #     - '.github/workflows/_gaudi_hpu_benchmark.yml'
-  #     - '.ci/**'
-  #     - 'gaudi_hpu/**'
-  #     - 'src/**'
-  #     - '!**/*.md'
-  # release:
-  #   types:
-  #     - 'published'
-  # schedule:
-  #   - cron: '0 12 * * *'
-  # repository_dispatch:
-  #   types: [pytorch-nightly-event-dispatch]
+  push:
+    branches:
+      - 'main'
+    paths:
+      - '.github/workflows/gaudi_hpu_test.yml'
+      - '.github/workflows/_gaudi_hpu_build_torch.yml'
+      - '.github/workflows/_gaudi_hpu_build_torch_hpu.yml'
+      - '.github/workflows/_gaudi_hpu_ut.yml'
+      - '.github/workflows/_gaudi_hpu_benchmark.yml'
+      - '.ci/**'
+      - 'gaudi_hpu/**'
+      - 'src/**'
+      - '!**/*.md'
+  pull_request:
+    branches:
+      - 'main'
+    paths:
+      - '.github/workflows/gaudi_hpu_test.yml'
+      - '.github/workflows/_gaudi_hpu_build_torch.yml'
+      - '.github/workflows/_gaudi_hpu_build_torch_hpu.yml'
+      - '.github/workflows/_gaudi_hpu_ut.yml'
+      - '.github/workflows/_gaudi_hpu_benchmark.yml'
+      - '.ci/**'
+      - 'gaudi_hpu/**'
+      - 'src/**'
+      - '!**/*.md'
+  release:
+    types:
+      - 'published'
+  schedule:
+    - cron: '0 12 * * *'
+  repository_dispatch:
+    types: [pytorch-nightly-event-dispatch]
   workflow_dispatch:
     inputs:
       runner:
@@ -69,14 +69,23 @@ on:
           - 8
         default: '0'
         description: 'The device selected to run on'
+      skip_run:
+        required: true
+        type: boolean
+        default: true
+        description: 'Skip the run of the workflow'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+env:
+  SKIP_RUN: 'false'
+
 jobs:
   prepare:
     name: Prepare
+    if: ${{ github.event.inputs.skip_run == 'false' }}
     runs-on: ubuntu-latest
     env:
       REL_VERSION: "1.21.0"
@@ -113,6 +122,7 @@ jobs:
     name: Build torch
     needs:
       - prepare
+    if: ${{ github.event.inputs.skip_run == 'false' }}
     # if: ${{ needs.prepare.outputs.ref }}
     uses: ./.github/workflows/_build_torch.yml
     with:
@@ -126,7 +136,7 @@ jobs:
     needs:
       - prepare
       - build-torch
-    if: ${{ !cancelled() && (success() || needs.build-torch.result == 'skipped') }}
+    if: ${{ !cancelled() && (success() || needs.build-torch.result == 'skipped') && github.event.inputs.skip_run == 'false' }}
     uses: ./.github/workflows/_gaudi_hpu_build_torch_hpu.yml
     with:
       runner: ${{ needs.prepare.outputs.runner }}
@@ -143,7 +153,8 @@ jobs:
       - build
     if: |
       !cancelled() && github.event_name != 'repository_dispatch' &&
-      (success() || (needs.build-torch.result == 'skipped' && needs.build.result == 'success'))
+      (success() || (needs.build-torch.result == 'skipped' && needs.build.result == 'success')) &&
+      github.event.inputs.skip_run == 'false'
     uses: ./.github/workflows/_gaudi_hpu_ut.yml
     with:
       ref: ${{ needs.prepare.outputs.ref }}
@@ -164,7 +175,8 @@ jobs:
       - test
     if: |
       !cancelled() && github.event_name != 'repository_dispatch' &&
-      (success() || (needs.build-torch.result == 'skipped' && needs.build.result == 'success'))
+      (success() || (needs.build-torch.result == 'skipped' && needs.build.result == 'success')) &&
+      github.event.inputs.skip_run == 'false'
     uses: ./.github/workflows/_gaudi_hpu_benchmark.yml
     with:
       ref: ${{ needs.prepare.outputs.ref }}
