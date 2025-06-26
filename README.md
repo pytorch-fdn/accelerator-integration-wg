@@ -39,8 +39,8 @@ GitHub workflows.
 | detectron2_maskrcnn_r_50_c4     | ❌    |
 | detectron2_maskrcnn_r_50_fpn    | ❌    |
 | dlrm                            | ✅    |
-| doctr_det_predictor             | ✅    |
-| doctr_reco_predictor            | ✅    |
+| doctr_det_predictor             | ❌    |
+| doctr_reco_predictor            | ❌    |
 | drq                             | ✅    |
 | fastNLP_Bert                    | ✅    |
 | functorch_dp_cifar10            | ✅    |
@@ -68,7 +68,7 @@ GitHub workflows.
 | llama                           | ✅    |
 | llama_v2_7b_16h                 | ❌    |
 | llava                           | ❌    |
-| maml                            | ✅    |
+| maml                            | ❌    |
 | maml_omniglot                   | ✅    |
 | microbench_unbacked_tolist_sum  | ✅    |
 | mnasnet1_0                      | ✅    |
@@ -113,7 +113,7 @@ GitHub workflows.
 | timm_vision_transformer         | ✅    |
 | timm_vision_transformer_large   | ✅    |
 | timm_vovnet                     | ✅    |
-| torch_multimodal_clip           | ✅    |
+| torch_multimodal_clip           | ❌    |
 | tts_angular                     | ✅    |
 | vgg16                           | ✅    |
 | vision_maskrcnn                 | ❌    |
