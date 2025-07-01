@@ -180,7 +180,7 @@ jobs:
 
   create-pr:
     if: ${{ needs.benchmark.outputs.changed == 'true' }}
-    name: Create a pull request for changes to README.md
+    name: Update benchmark result
     runs-on: ubuntu-latest
     needs:
       - benchmark
@@ -194,7 +194,7 @@ jobs:
           name: README.md
 
       # See: https://github.com/peter-evans/create-pull-request
-      - name: Create a pull request for changes to README.md
+      - name: Create a pull request to update benchmark result
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.pr-token }}
@@ -214,5 +214,5 @@ jobs:
             [1]: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
             [2]: ${{ needs.benchmark.outputs.report-url }}
 
-            cc: @Yikun @hipudding @FFFrog @Zhenbin-8 @zeshengzong @wjunLu @MengqingCao @shink
-          reviewers: shink
+            cc: @FFFrog @zeshengzong 
+          reviewers: zeshengzong

@@ -19,10 +19,6 @@ on:
       torch-npu-artifact:
         description: "The distribution artifact name of torch_npu"
         value: ${{ jobs.build.outputs.dist-name }}
-    secrets:
-      runner-token:
-        description: "A token used to pull private repo"
-        required: true
 
 jobs:
   build:
@@ -51,8 +47,6 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.runner-token }}
 
       - name: Checkout torch_npu
         uses: actions/checkout@v4
@@ -60,6 +54,7 @@ jobs:
           repository: Ascend/pytorch
           submodules: recursive
           path: torch_npu
+          ref: d33df559f6aa3c73c44e9c3a9bed3490faf07566
 
       - name: Install torch_npu dependencies
         working-directory: torch_npu
@@ -117,7 +112,6 @@ jobs:
       - name: List torch_npu version
         id: list-version
         run: |
-          sleep 3600
           torch_version=$(python -c "import torch; print(torch.__version__)")
           torch_npu_version=$(python -c "import torch_npu; print(torch_npu.__version__)")
           echo "torch version: ${torch_version}"
