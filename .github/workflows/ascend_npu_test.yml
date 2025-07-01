@@ -116,8 +116,6 @@ jobs:
       runner: ${{ needs.prepare.outputs.runner }}
       image: ${{ needs.prepare.outputs.image }}
       torch-artifact: ${{ needs.build-torch.outputs.torch-artifact }}
-    secrets:
-      runner-token: ${{ secrets.ASCEND_RUNNER_TOKEN }}
 
   test:
     name: Test torch_npu
