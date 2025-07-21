@@ -152,7 +152,7 @@ jobs:
   #     pr-token: ${{ secrets.ASCEND_RUNNER_TOKEN }}
 
   torchtune:
-    name: Run benchmarks
+    name: Run torchtune
     needs:
       - prepare
       - build-torch
