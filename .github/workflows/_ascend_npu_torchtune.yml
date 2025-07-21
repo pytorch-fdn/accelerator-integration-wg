@@ -66,11 +66,6 @@ jobs:
           repository: pytorch/torchtune
           path: torchtune
 
-      - name: Install torchtune
-        working-directory: torchtune
-        run: |
-          pip install -e .
-
       - name: Download torch artifact
         if: ${{ inputs.torch-artifact }}
         uses: actions/download-artifact@v4
@@ -103,7 +98,7 @@ jobs:
       - name: Install torch_npu
         working-directory: ascend_npu
         run: |
-          pip install ${{ inputs.torch-npu-artifact }}
+          pip install ${{ inputs.torch-npu-artifact }} torchtune torchao torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cpu
 
       - name: Show environment info
         run: |
@@ -115,7 +110,8 @@ jobs:
           hf-token: ${{ secrets.hf-token }}
         run: |
             tune download Qwen/Qwen2.5-0.5B-Instruct \
-              --output-dir /tmp/Qwen2.5-0.5B-Instruct 
+              --output-dir /tmp/Qwen2.5-0.5B-Instruct \
+              --hf-token $hf-token
 
       - name: Run torchtune with lora finetune
         run: |
