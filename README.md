@@ -1,11 +1,17 @@
-# PyTorch Out-of-tree Accelerator TestInfra
+# PyTorch Accelerator Integration
 
-Welcome! This repository is designed to facilitate the integration testing of 
-different accelerators with PyTorch. Our primary focus is to ensure seamless 
-integration and compatibility across various devices by running comprehensive 
-GitHub workflows.
+This repository is dedicated to improving and streamlining the integration of diverse AI hardware accelerators with PyTorch. It supports the efforts of the Accelerator Integration Working Group to reduce integration complexity, enhance the integration mechanism, and establish reliable CI infrastructure for out-of-tree accelerators. The goal is to build a scalable and inclusive PyTorch hardware ecosystem. 
 
-## Accelerator Integration Test Results
+## Accelerator Integration Tests
+
+This repository contains workflows and scripts that automate the testing process for integrating different hardware devices with PyTorch. The tests aim to validate that PyTorch's device-specific functionalities are working correctly and efficiently across different platforms.
+
+### Key Features
+
+- **Automated Integration Tests**: Run tests automatically for different devices using GitHub Actions.
+- **Reusable Workflows**: Leverage modular and reusable workflows to streamline the testing process.
+
+### Integration Test Results
 
 <details>
 
@@ -123,29 +129,6 @@ GitHub workflows.
 
 </details>
 
-## Overview
-
-This repository contains workflows and scripts that automate the testing
-process for integrating different hardware devices with PyTorch. The tests aim
-to validate that PyTorch's device-specific functionalities are working
-correctly and efficiently across different platforms.
-
-### Key Features
-
-- **Automated Integration Tests**: Run tests automatically for different devices using GitHub Actions.
-- **Reusable Workflows**: Leverage modular and reusable workflows to streamline the testing process.
-
-## Usage
-
-### Running Tests
-
-To run the integration tests, the repository leverages GitHub Actions.
-You can trigger the tests by pushing code to the repository or by manually
-triggering the workflows.
-
-### Customizing Workflows
-
-For customize your own workflows, here are some reference configuration in [workflow](https://github.com/pytorch-fdn/oota/tree/main/.github/workflows).
 
 ## Contributing
 
@@ -157,7 +140,7 @@ compatibility and performance of PyTorch on various devices. See the
 ### Reporting Issues
 
 If you encounter any issues while using the workflows or integrating a device,
-please report them via the [Issues](https://github.com/pytorch-fdn/oota/issues) tab.
+please report them via the [Issues](https://github.com/pytorch-fdn/accelerator-integration-wg/issues) tab.
 
 ## License
 
