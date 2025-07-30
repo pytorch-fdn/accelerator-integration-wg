@@ -132,10 +132,15 @@ This repository contains workflows and scripts that automate the testing process
 
 ## Contributing
 
-We welcome contributions to enhance the integration testing process. Feel free
-to submit issues, pull requests, or suggestions to help us improve the
-compatibility and performance of PyTorch on various devices. See the 
-[CONTRIBUTING](CONTRIBUTING.md) for more details.
+We welcome contributions to all aspects of the PyTorch accelerator integration mechanism — including APIs, tooling, CI infrastructure, documentation, and device support.
+
+You can explore open tasks and priorities on our [project dashboard](https://github.com/orgs/pytorch-fdn/projects/13/views/2), and look for issues labeled `help wanted` to get started. Feel free to submit issues, pull requests, or suggestions to help us build a more flexible and scalable hardware integration ecosystem. See the [CONTRIBUTING](CONTRIBUTING.md) guide for details.
+
+Stay connected:
+
+* **Slack channel**: `#tac-accelerator-integration-wg` on the [PyTorch Slack](https://pytorch.slack.com/)
+* **Participate working group meeting**: [Meeting Notes](https://docs.google.com/document/d/10G2fib_76CV4TCf47S-r6R6sg845-ty_ujur_giMNMI)
+
 
 ### Reporting Issues
 
