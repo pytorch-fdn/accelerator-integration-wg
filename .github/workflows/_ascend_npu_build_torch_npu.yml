@@ -71,7 +71,7 @@ jobs:
 
       - name: Download torch artifact
         if: ${{ inputs.torch-artifact }}
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: ${{ inputs.torch-artifact }}
 
