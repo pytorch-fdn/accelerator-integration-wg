@@ -2,12 +2,12 @@ name: ci-temp-test-model
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
-env:
-  CUDA_VISIBLE_DEVICES: 7
+# env:
+#   CUDA_VISIBLE_DEVICES: 7
 
 jobs:
   ci-temp-test-model:
