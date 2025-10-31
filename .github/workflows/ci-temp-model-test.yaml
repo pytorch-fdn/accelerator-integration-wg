@@ -8,7 +8,7 @@ on:
 
 jobs:
   ci-temp-test-model:
-    runs-on: ci-temp-test-model
+    runs-on: self-hosted
     concurrency:
       group: ci-temp-test-model-${{ github.event.pull_request.number || github.ref }}
       cancel-in-progress: true
