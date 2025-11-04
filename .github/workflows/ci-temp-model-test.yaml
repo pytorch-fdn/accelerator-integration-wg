@@ -33,7 +33,7 @@ jobs:
         run: |
           # source tools/run_command.sh
           set -e
-          source "/root/anaconda3/etc/profile.d/conda.sh"
+          source "/root/miniconda3/etc/profile.d/conda.sh"
           conda init bash
           conda activate new-torchbenchmark
           pip install -e flag_gems/
