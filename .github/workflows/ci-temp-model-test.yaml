@@ -41,9 +41,6 @@ jobs:
             """\
             import flag_gems\
             flag_gems.enable(record=False, once=True, path='"'"'benchmark/oplist.log'"'"')""")' benchmark/torchbenchmark/__init__.py
-          python benchmark/install.py models hf_GPT2 resnet50 hf_T5 dcgan
-          python benchmark/run_benchmark.py test_bench --accuracy --device cuda --test eval --output output1.json --models hf_GPT2
-          python benchmark/run_benchmark.py test_bench --accuracy --device cuda --test eval --output output2.json --models resnet50
-          python benchmark/run_benchmark.py test_bench --accuracy --device cuda --test eval --output output3.json --models hf_T5
-          python benchmark/run_benchmark.py test_bench --accuracy --device cuda --test eval --output output4.json --models dcgan
+          python benchmark/install.py
+          python benchmark/run_benchmark.py test_bench --accuracy --device cuda --test eval --output output.json
           sed -i '/self\.worker\.run($/,/^[[:space:]]*flag_gems\.enable.*oplist\.log.*""")/d' benchmark/torchbenchmark/__init__.py
