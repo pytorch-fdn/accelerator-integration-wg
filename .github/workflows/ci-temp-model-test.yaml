@@ -1,0 +1,46 @@
+name: ci-temp-test-model
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  ci-temp-test-model:
+    runs-on: self-hosted
+    concurrency:
+      group: ci-temp-test-model-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout accelerator-integration-wg
+        uses: actions/checkout@v4
+     
+      - name: Checkout flaggems
+        uses: actions/checkout@v4
+        with:
+          repository: FlagOpen/FlagGems
+          path: flag_gems
+
+      - name: Checkout benchmark
+        uses: actions/checkout@v4
+        with:
+          repository: pytorch/benchmark
+          path: benchmark
+
+      - name: Install and run benchmark
+        shell: bash
+        run: |
+          # source tools/run_command.sh
+          set -e
+          source "/root/miniconda3/etc/profile.d/conda.sh"
+          conda init bash
+          conda activate new-torchbenchmark
+          pip install -e flag_gems/
+          sed -i '/self\.worker\.run("import torch")/a\        self.worker.run(\
+            """\
+            import flag_gems\
+            flag_gems.enable(record=False, once=True, path='"'"'benchmark/oplist.log'"'"')""")' benchmark/torchbenchmark/__init__.py
+          python benchmark/install.py models BERT_pytorch dcgan fastNLP_Bert hf_Bert hf_GPT2 hf_T5 resnet50 pytorch_unet 
+          python benchmark/run_benchmark.py test_bench --accuracy --device cuda --test eval --output output.json --models BERT_pytorch,dcgan,fastNLP_Bert,hf_Bert,hf_GPT2,hf_T5,resnet50,pytorch_unet
+          sed -i '/self\.worker\.run($/,/^[[:space:]]*flag_gems\.enable.*oplist\.log.*""")/d' benchmark/torchbenchmark/__init__.py
