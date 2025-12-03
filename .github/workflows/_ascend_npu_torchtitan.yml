@@ -122,6 +122,6 @@ jobs:
           python -m tests.integration_tests.run_tests --test_name artifacts-to-be-uploaded --ngpu ${{ steps.check_npu.outputs.npu_count }} || true
   
       - name: Run torchtitan unittest
-        working-directory: torchtitan·
+        working-directory: torchtitan
         run: |
           pytest tests/unit_tests --cov=. --cov-report=xml --durations=20 -vv
