@@ -16,6 +16,7 @@ This repository is dedicated to improving and streamlining the integration of di
 - Alban Desmaison ([@alband](https://github.com/alband))
 - Claudio Basile ([@cbasile-g](https://github.com/cbasile-g))
 - Guangye Yu ([@guangyey](https://github.com/guangyey))
+- Joseph Groenenboom ([@groenenboomj](https://github.com/groenenboomj))
 - Zesheng Zong ([@zeshengzong](https://github.com/zeshengzong))
 
 ## Accelerator Integration Guide
